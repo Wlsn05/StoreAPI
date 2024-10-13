@@ -18,9 +18,9 @@ const albumController = {
         return res.status(400).json({ error: 'datos faltantes requeridos' });
       }
       // Asegúrate de que albums sea un arreglo de ObjectId
-      const album= new albumModel({ id, title, releaseDate, genre });
-      await album.save();
-      res.json(artist);
+      const newAlbum= new album({ id, title, releaseDate, genre });
+      await newAlbum.save();
+      res.json(newAlbum);
     } catch (error) {
       res.status(400).json({ error: error.message });
     }
