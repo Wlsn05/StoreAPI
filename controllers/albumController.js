@@ -12,14 +12,14 @@ const albumController = {
   },
   create: async (req, res) => {
     try {
-      const { id, name, nationality, albums } = req.body; // Cambiar albumsId a albums
+      const { id, title, releaseDate, genre } = req.body; // Cambiar albumsId a albums
 
-      if (!id || !name || !nationality) {
+      if (!id || !title || !releaseDate || ! genre) {
         return res.status(400).json({ error: 'datos faltantes requeridos' });
       }
       // Asegúrate de que albums sea un arreglo de ObjectId
-      const artist = new artistModel({ id, name, nationality, albums });
-      await artist.save();
+      const album= new albumModel({ id, title, releaseDate, genre });
+      await album.save();
       res.json(artist);
     } catch (error) {
       res.status(400).json({ error: error.message });
