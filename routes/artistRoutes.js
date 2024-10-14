@@ -82,13 +82,13 @@
  *         description: Faltan datos obligatorios y/o album ya está asociado al artista
  * 
  * /artist/{id}:
- *   put:
- *     summary: Actualiza un artista existente
- *     parameters:
- *       - name: id
+ *   post:
+ *     summary: Agrega un album a un artista determinado
+ *     parameters: 
+ *       - _id album: 
  *         in: path
  *         required: true
- *         description: dato del artista a actualizar
+ *         description: id del album a actualizar
  *         schema:
  *           type: string
  *     requestBody:
@@ -96,7 +96,22 @@
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/Artista'
+ *             type: string    
+ *   put:
+ *     summary: Actualiza un artista existente
+ *     parameters:
+ *       - name: name
+ *         in: path
+ *         required: true
+ *         description: dato o datos del artista a actualizar
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: string
  *     responses:
  *       200:
  *         description: datos de artista actualizado
@@ -128,7 +143,6 @@ const artistController = require('../controllers/artistController')
 
 router.get('/artist', artistController.getAll);
 router.post('/artist', artistController.create);
-router.post('/artist/:artistId/albums/:albumsId', artistController.addAlbumToArtist)
 router.put('/artist/:id', artistController.update)
 router.delete('/artist/:id', artistController.delete)
 
