@@ -118,7 +118,7 @@ const artistController = require('../controllers/artistController')
 
 router.get('/artist', artistController.getAll);
 router.post('/artist', artistController.create);
-router.post('/artist/:id/album/:id', artistControler.addAlbumToArtist)
+router.post('/artist/:id/albums/:id', artistControler.addAlbumToArtist)
 router.put('/artist/:id', artistController.update)
 router.delete('/artist/:id', artistController.delete)
 
