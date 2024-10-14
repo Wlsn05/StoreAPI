@@ -57,13 +57,24 @@
  *       400:
  *         description: Datos faltantes requeridos
  * /artist/{id}:
+ *   post:
+ *     summary: Agrega un album a un artista determinado
+ *     parameters: 
+ *       - _id album: 
+ *       in: path
+ *       required: true
+ *       description: id del album a actualizar
+ *       schema:
+ *         type: string
+ *      responses:
+ *         
  *   put:
  *     summary: Actualiza un artista existente
  *     parameters:
- *       - name: id
+ *       - name: name
  *         in: path
  *         required: true
- *         description: dato del artista a actualizar
+ *         description: dato o datos del artista a actualizar
  *         schema:
  *           type: string
  *     requestBody:
@@ -71,7 +82,7 @@
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/Artista'
+ *             type: string
  *     responses:
  *       200:
  *         description: datos de artista actualizado actualizado
