@@ -61,13 +61,17 @@
  *     summary: Agrega un album a un artista determinado
  *     parameters: 
  *       - _id album: 
- *       in: path
+ *         in: path
+ *         required: true
+ *         description: id del album a actualizar
+ *         schema:
+ *           type: string
+ *     requestBody:
  *       required: true
- *       description: id del album a actualizar
- *       schema:
- *         type: string
- *      responses:
- *         
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: string    
  *   put:
  *     summary: Actualiza un artista existente
  *     parameters:
