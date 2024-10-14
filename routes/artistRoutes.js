@@ -41,8 +41,8 @@
  *             schema:
  *               type: array
  *               items:
- *                 $ref: 'l#/components/schemas/Artista'
- *
+ *                 $ref: '#/components/schemas/Artista'
+ * 
  *   post:
  *     summary: Crea un nuevo artista
  *     requestBody:
@@ -56,6 +56,31 @@
  *         description: Artista agregado
  *       400:
  *         description: Datos faltantes requeridos
+ * 
+ * /artist/{id}/album/{id}:
+ *   post:
+ *     summary: Agrega un album existente a un artista existente
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         description: id de artista e id del album
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Artista'
+ *     responses:
+ *       200:
+ *         description: album agregado
+ *       404:
+ *         description: artista no encontrado y/o album no encontrado
+ *       400:
+ *         description: Faltan datos obligatorios y/o album ya está asociado al artista
+ * 
  * /artist/{id}:
  *   put:
  *     summary: Actualiza un artista existente
@@ -74,12 +99,12 @@
  *             $ref: '#/components/schemas/Artista'
  *     responses:
  *       200:
- *         description: datos de artista actualizado actualizado
+ *         description: datos de artista actualizado
  *       404:
  *         description: datos de artista no encontrado
  *       400:
  *         description: Datos inválidos
- *
+ * 
  *   delete:
  *     summary: Elimina los datos de un artista existente
  *     parameters:
@@ -103,6 +128,7 @@ const artistController = require('../controllers/artistController')
 
 router.get('/artist', artistController.getAll);
 router.post('/artist', artistController.create);
+router.post('/artist/:artistId/albums/:albumsId', artistController.addAlbumToArtist)
 router.put('/artist/:id', artistController.update)
 router.delete('/artist/:id', artistController.delete)
 

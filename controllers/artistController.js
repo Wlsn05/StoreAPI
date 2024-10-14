@@ -28,7 +28,7 @@ const artistController = {
   },
   addAlbumToArtist: async (req, res) => {
     const { artistId, albumsId } = req.params
-
+    console.log(req.params)
     if(!artistId || !albumsId){
       return res.status(400).json({error:'Faltan datos obligatorios'})
     }
