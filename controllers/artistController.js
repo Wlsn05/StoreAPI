@@ -14,7 +14,7 @@ const artistController = {
   create: async (req, res) => {
 
     try {
-      const { id, name, nationality, albums } = req.body; 
+      const { id, name, nationality, albums } = req.body;
 
       if (!id || !name || !nationality) {
         return res.status(400).json({ error: 'datos faltantes requeridos' })
@@ -23,35 +23,69 @@ const artistController = {
       await artist.save();
       res.json(artist)
     } catch (error) {
-      res.status(400).json({error: error.message})
+      res.status(400).json({ error: error.message })
+    }
+  },
+  addNewAlbumToArtist: async (req, res) => {
+    const { artistId } = req.params; 
+    console.log(req.params)
+    const { id, title, releaseDate, genre } = req.body; 
+
+    if (!artistId || !title || !releaseDate || !genre) {
+      return res.status(400).json({ error: 'Faltan datos obligatorios' });
+    }
+
+    try {
+      const artist = await artistModel.findById(artistId);
+      if (!artist) {
+        return res.status(404).json({ message: 'Artista no encontrado' });
+      }
+
+      // Crear un nuevo álbum
+      const newAlbum = new albumModel({ id, title, releaseDate, genre });
+      await newAlbum.save(); // Guardar el nuevo álbum en la base de datos
+
+      // Asociar el nuevo álbum al artista
+      artist.albums.push(newAlbum._id); // Suponiendo que 'albums' es un array de IDs en el modelo de artista
+      await artist.save(); // Guardar los cambios en el artista
+
+      // Responder con éxito
+      res.status(201).json({
+        message: 'Álbum creado y asociado al artista',
+        album: newAlbum,
+      });
+    } catch (error) {
+      // Manejar errores
+      console.error(error);
+      res.status(500).json({ error: 'Error al crear el álbum' });
     }
   },
   addAlbumToArtist: async (req, res) => {
     const { artistId, albumsId } = req.params
     //console.log(req.params)
-    if(!artistId || !albumsId){
-      return res.status(400).json({error:'Faltan datos obligatorios'})
+    if (!artistId || !albumsId) {
+      return res.status(400).json({ error: 'Faltan datos obligatorios' })
     }
 
     try {
       const artist = await artistModel.findById(artistId)
-      if(!artist) {
-        return res. status(404).json({message: 'Artista no encontrado'})
+      if (!artist) {
+        return res.status(404).json({ message: 'Artista no encontrado' })
       }
       const album = await albumModel.findById(albumsId)
-      if(!album){
-        return res.status(404).json({message: 'Album no encontrado'})
-      } 
+      if (!album) {
+        return res.status(404).json({ message: 'Album no encontrado' })
+      }
       //verificar si el album ya está en el objeto de artista
-      if(artist.albums.includes(albumsId)) {
-        return res.status(400).json({message:'El album ya está asociado al artista'})
+      if (artist.albums.includes(albumsId)) {
+        return res.status(400).json({ message: 'El album ya está asociado al artista' })
       }
       //agregar el album al artista
       artist.albums.push(albumsId)
       await artist.save()
       res.json(artist)
-    }catch (error) {
-      res.status(400).json({error: error.message})
+    } catch (error) {
+      res.status(400).json({ error: error.message })
     }
   },
   update: async (req, res) => {
@@ -79,7 +113,7 @@ const artistController = {
       res.status(400).json({ error: error.message });
     }
   },
-  delete:  async (req, res) => {
+  delete: async (req, res) => {
     const { id } = req.params;
 
     // Validar que el ID del artista exista
@@ -105,7 +139,7 @@ const artistController = {
       res.status(500).json({ error: error.message });
     }
   }
-  
+
 }
 
 module.exports = artistController;

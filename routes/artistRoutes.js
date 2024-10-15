@@ -57,6 +57,30 @@
  *       400:
  *         description: Datos faltantes requeridos
  * 
+ * /artist/{id}/album:
+ *   post:
+ *     summary: Agrega un album a un artista existente
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         description: id de artista agregar los datos de un album
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Artista'
+ *     responses:
+ *       200:
+ *         description: album agregado
+ *       404:
+ *         description: artista no encontrado
+ *       400:
+ *         description: Faltan datos obligatorios y/o album ya está creado
+ * 
  * /artist/{id}/album/{id}:
  *   post:
  *     summary: Agrega un album existente a un artista existente
@@ -143,6 +167,7 @@ const artistController = require('../controllers/artistController')
 
 router.get('/artist', artistController.getAll);
 router.post('/artist', artistController.create);
+router.post('/artist/:artistId/albums', artistController.addNewAlbumToArtist)
 router.post('/artist/:artistId/albums/:albumsId', artistController.addAlbumToArtist)
 router.put('/artist/:id', artistController.update)
 router.delete('/artist/:id', artistController.delete)
