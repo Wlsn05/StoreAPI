@@ -8,3 +8,4 @@ Desarrollado por: Wilson Fabián Jaimes Vianchá
 - Dirección para interactuar con el contenido de artistas: https://wilson-storeapi.onrender.com/artist
 - Dirección para interactuar con el contenido de albumes: https://wilson-storeapi.onrender.com/albums
 - Direccion de la API en la nube: https://wilson-storeapi.onrender.com
+- Dirección para acceder a la documentación: https://wilson-storeapi.onrender.com/api-docs
