@@ -1,5 +1,8 @@
 /**
  * @swagger
+ * servers:
+  - url: https://wilson-storeapi.onrender.com
+    description: Servidor de producción
  * components:
  *   schemas:
  *     Artista:
